@@ -1,5 +1,6 @@
 package pieces;
 
+import pieces.Piece.Figure;
 import pieces.coordinate.Coordinate;
 
 import static pieces.coordinate.Coordinate.*;
@@ -67,5 +68,13 @@ public class UnitInfo {
 
     public String getPositionString() {
         return presentPosition.toString();
+    }
+
+    public Figure findMark() {
+        Figure mark = pieceName.mark(player);
+        if (mark == null) {
+            return presentPosition.assignEmptyMark();
+        }
+        return mark;
     }
 }

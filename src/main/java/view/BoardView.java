@@ -1,0 +1,38 @@
+package view;
+
+import chessGame.ChessBoard;
+import pieces.coordinate.Coordinate;
+
+import java.io.IOException;
+
+public class BoardView {
+
+    private Tile[][] tileMap = new Tile[8][8];
+    private ChessBoard chessBoard = ChessBoard.getInstance();
+
+    public BoardView() {
+        initTiles();
+    }
+
+    private void initTiles() {
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                Tile tile = new Tile(new Coordinate(i+1, j+97));
+                tile.mark(chessBoard);
+                tileMap[7- i][j] = tile;
+            }
+        }
+    }
+
+    public void drawBoard() throws IOException {
+        System.out.print("\033[H\033[2J");
+        initTiles();
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                tileMap[i][j].draw();
+            }
+            System.out.println();
+        }
+    }
+
+}

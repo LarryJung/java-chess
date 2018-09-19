@@ -1,5 +1,7 @@
 package pieces.coordinate;
 
+import pieces.Piece;
+
 import java.util.Objects;
 
 public class Coordinate {
@@ -12,8 +14,20 @@ public class Coordinate {
         this.column = new Line(col);
     }
 
+    public Coordinate(int row, int col) {
+        this.row = new Line(row);
+        this.column = new Line(col);
+    }
+
     public PositionDiff diffTo(Coordinate destination) {
         return new PositionDiff(row.diff(destination.row), column.diff(destination.column));
+    }
+
+    public Piece.Figure assignEmptyMark() {
+        if ((row.getPosition() + column.getPosition()) % 2 == 0) {
+            return Piece.Figure.getEmptyWhite();
+        }
+        return Piece.Figure.getEmptyBlack();
     }
 
     public static class PositionDiff {

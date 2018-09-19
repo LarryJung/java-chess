@@ -40,4 +40,9 @@ public class UnitImpl implements Unit {
     public boolean isEnemy(Player player) {
         return this.unitInfo.getPlayer().isEnemy(player);
     }
+
+    @Override
+    public Piece.Figure getMark() {
+        return unitInfo.findMark();
+    }
 }

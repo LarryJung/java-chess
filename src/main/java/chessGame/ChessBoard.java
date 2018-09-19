@@ -92,4 +92,8 @@ public class ChessBoard {
     public void clear() {
         chessBoard = null;
     }
+
+    public Piece.Figure findMark(Coordinate coordinate) {
+        return pickUnitAt(coordinate).getMark();
+    }
 }
