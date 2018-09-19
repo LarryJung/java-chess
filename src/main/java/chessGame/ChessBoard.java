@@ -12,6 +12,9 @@ public class ChessBoard {
     private static ChessBoard chessBoard = new ChessBoard().init();
 
     public static ChessBoard getInstance() {
+        if (chessBoard == null) {
+            chessBoard = new ChessBoard().init();
+        }
         return chessBoard;
     }
 
@@ -86,4 +89,7 @@ public class ChessBoard {
         chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'h')));
     }
 
+    public void clear() {
+        chessBoard = null;
+    }
 }
