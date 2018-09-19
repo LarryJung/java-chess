@@ -5,11 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import chessGame.ChessBoard;
 
-import java.lang.reflect.Field;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static pieces.Piece.*;
 
@@ -29,8 +25,6 @@ public class UnitTest {
 
     @Test
     public void initPositionTest_black() {
-
-        chessBoard = ChessBoard.getInstance();
 
         assertThat(chessBoard.pickUnitAt(8, 'a').getPiece(), is(ROOK));
         assertThat(chessBoard.pickUnitAt(8, 'b').getPiece(), is(KNIGHT));
@@ -53,7 +47,6 @@ public class UnitTest {
 
     @Test
     public void initPositionTest_white() {
-        chessBoard = ChessBoard.getInstance();
 
         assertThat(chessBoard.pickUnitAt(1, 'a').getPiece(), is(ROOK));
         assertThat(chessBoard.pickUnitAt(1, 'b').getPiece(), is(KNIGHT));
@@ -76,14 +69,12 @@ public class UnitTest {
 
     @Test
     public void movePawn_first_success_1() {
-        chessBoard = ChessBoard.getInstance();
         chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e');
         assertThat(chessBoard.pickUnitAt(5, 'e').getPiece(), is(PAWN));
     }
 
     @Test
     public void movePawn_first_success_2() {
-        chessBoard = ChessBoard.getInstance();
         chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e');
         chessBoard.pickUnitAt(5, 'e').moveTo(4, 'e');
         assertThat(chessBoard.pickUnitAt(4, 'e').getPiece(), is(PAWN));
@@ -92,19 +83,16 @@ public class UnitTest {
 
     @Test(expected = RuntimeException.class)
     public void movePawn_first_fail_1() {
-        chessBoard = ChessBoard.getInstance();
         chessBoard.pickUnitAt(7, 'e').moveTo(6, 'e');
     }
 
     @Test(expected = RuntimeException.class)
     public void movePawn_first_fail_2() {
-        chessBoard = ChessBoard.getInstance();
         chessBoard.pickUnitAt(7, 'e').moveTo(7, 'd');
     }
 
     @Test(expected = RuntimeException.class)
     public void movePawn_first_fail_3() {
-        chessBoard = ChessBoard.getInstance();
         chessBoard.pickUnitAt(7, 'e').moveTo(6, 'd');
     }
 }
