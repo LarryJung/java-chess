@@ -10,6 +10,10 @@ public class Line {
         this.position = position;
     }
 
+    public int diff(Line target) {
+        return position - target.position;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -23,4 +27,5 @@ public class Line {
 
         return Objects.hash(position);
     }
+
 }

@@ -12,6 +12,30 @@ public class Coordinate {
         this.column = new Line(col);
     }
 
+    public PositionDiff diffTo(Coordinate destination) {
+        return new PositionDiff(row.diff(destination.row), column.diff(destination.column));
+    }
+
+    public static class PositionDiff {
+
+        private int rowDiff;
+        private int colDiff;
+
+        public PositionDiff(int rowDiff, int colDiff) {
+            this.rowDiff = rowDiff;
+            this.colDiff = colDiff;
+        }
+
+        public int getRowDiff() {
+            return rowDiff;
+        }
+
+        public int getColDiff() {
+            return colDiff;
+        }
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
