@@ -56,10 +56,27 @@ public class UnitTest {
     }
 
     @Test
-    public void movePawn_first() {
+    public void movePawn_first_success() {
         ChessBoard chessBoard = ChessBoard.getInstance();
-        chessBoard.initBlack();
         chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e');
         assertThat(chessBoard.pickUnitAt(5, 'e').getPiece(), is(PAWN));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void movePawn_first_fail_1() {
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        chessBoard.pickUnitAt(7, 'e').moveTo(6, 'e');
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void movePawn_first_fail_2() {
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        chessBoard.pickUnitAt(7, 'e').moveTo(7, 'd');
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void movePawn_first_fail_3() {
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        chessBoard.pickUnitAt(7, 'e').moveTo(6, 'd');
     }
 }

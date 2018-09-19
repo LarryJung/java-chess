@@ -28,4 +28,7 @@ public class Line {
         return Objects.hash(position);
     }
 
+    public int getPosition() {
+        return position;
+    }
 }

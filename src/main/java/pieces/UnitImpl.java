@@ -18,8 +18,10 @@ public class UnitImpl implements Unit {
 
     @Override
     public Unit moveTo(int row, char col) {
+        UnitInfo updatedUnitInfo = unitInfo.changeInfo(row, col);
+        System.out.println(String.format("%s 유저가 %s 을 옮겼습니다. %s -> %s", unitInfo.getPlayer(), unitInfo.getPieceName(), unitInfo.getPositionString(), updatedUnitInfo.getPositionString()));
         ChessBoard.getInstance().removeUnit(this);
-        this.unitInfo = unitInfo.changeInfo(row, col);
+        this.unitInfo = updatedUnitInfo;
         ChessBoard.getInstance().updatePosition(this);
         return this;
     }
@@ -36,6 +38,6 @@ public class UnitImpl implements Unit {
 
     @Override
     public boolean isEnemy(Player player) {
-        return this.unitInfo.getPlayer() != player;
+        return this.unitInfo.getPlayer().isEnemy(player);
     }
 }

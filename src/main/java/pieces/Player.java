@@ -4,6 +4,14 @@ public enum Player {
 
     BLACK,
     WHITE,
-    NONE
+    NONE;
+
+    public boolean isEnemy(Player target) {
+        if (this == BLACK) {
+            return target == WHITE;
+        }
+        return this == WHITE && target == BLACK;
+    }
+
 
 }
