@@ -2,6 +2,7 @@ package pieces;
 
 import chessGame.ChessBoard;
 import pieces.coordinate.Coordinate;
+import pieces.unitInfo.UnitInfo;
 
 import static pieces.Piece.*;
 
@@ -10,7 +11,7 @@ public class UnitImpl implements Unit {
     private UnitInfo unitInfo;
 
     public UnitImpl(Piece pieceName, Player player, Coordinate coordinate) {
-        this.unitInfo = new UnitInfo(pieceName, player, coordinate);
+        this.unitInfo = UnitInfoFactory.createUnitInfo(pieceName, player, coordinate);
     }
 
     @Override
@@ -46,5 +47,10 @@ public class UnitImpl implements Unit {
     @Override
     public Figure getMark() {
         return unitInfo.findMark();
+    }
+
+    @Override
+    public boolean isAlly(Player player) {
+        return this.unitInfo.getPlayer().isAlly(player);
     }
 }

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pieces.UnitTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-09-20T02:44:26" hostname="chaegyunui-MBP" time="0.028">
+<testsuite name="pieces.UnitTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2018-09-20T03:53:34" hostname="chaegyunui-MBP" time="0.037">
   <properties/>
-  <testcase name="initPositionTest_black" classname="pieces.UnitTest" time="0.017"/>
-  <testcase name="initPositionTest_white" classname="pieces.UnitTest" time="0.003"/>
-  <testcase name="movePawn_first_success_1" classname="pieces.UnitTest" time="0.002"/>
-  <testcase name="movePawn_first_success_2" classname="pieces.UnitTest" time="0.001"/>
+  <testcase name="initPositionTest_black" classname="pieces.UnitTest" time="0.015"/>
+  <testcase name="initPositionTest_white" classname="pieces.UnitTest" time="0.002"/>
+  <testcase name="moveKing_fail_1" classname="pieces.UnitTest" time="0.003"/>
+  <testcase name="moveKing_fail_2" classname="pieces.UnitTest" time="0.002"/>
+  <testcase name="movePawn_first_success_1" classname="pieces.UnitTest" time="0.003"/>
+  <testcase name="movePawn_first_success_2" classname="pieces.UnitTest" time="0.002"/>
+  <testcase name="moveKing" classname="pieces.UnitTest" time="0.002"/>
   <testcase name="movePawn_first_fail_1" classname="pieces.UnitTest" time="0.001"/>
   <testcase name="movePawn_first_fail_2" classname="pieces.UnitTest" time="0.001"/>
   <testcase name="movePawn_first_fail_3" classname="pieces.UnitTest" time="0.001"/>
   <system-out><![CDATA[BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
 BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
 BLACK 유저가 PAWN 을 옮겼습니다. (5, e) -> (4, e)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK 유저가 KING 을 옮겼습니다. (8, e) -> (7, e)
 블랙
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

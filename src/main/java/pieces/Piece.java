@@ -2,6 +2,7 @@ package pieces;
 
 import chessGame.ChessBoard;
 import pieces.coordinate.Coordinate;
+import pieces.unitInfo.UnitInfo;
 
 import static pieces.coordinate.Coordinate.*;
 
@@ -27,16 +28,54 @@ public enum Piece {
 
     public boolean isPossibleDestination(Coordinate presentPosition, Coordinate destination, UnitInfo unitInfo) {
         PositionDiff positionDiff = presentPosition.diffTo(destination);
+        ChessBoard chessBoard = ChessBoard.getInstance();
+
         switch (this) {
             case PAWN:
-                if (unitInfo.isOneDiffWithDirection(positionDiff) && ChessBoard.getInstance().isEnemy(unitInfo, destination))
-                    return true;
-                if (unitInfo.isFirstAction() && positionDiff.getRowDiff() == 2 && positionDiff.getColDiff() == 0)
-                    return true;
-                return !unitInfo.isFirstAction() && positionDiff.getRowDiff() == 1 && positionDiff.getColDiff() == 0;
+                return getPawnMoveCondition(destination, unitInfo, positionDiff, chessBoard);
+            case KNIGHT:
+                return getKnightMoveCondition(destination, unitInfo, positionDiff, chessBoard);
+            case ROOK:
+                return getRookMoveCondition(positionDiff) && !chessBoard.isAlly(unitInfo, destination);
+            case BISHOP:
+                return getBishopMoveCondition(positionDiff) && !chessBoard.isAlly(unitInfo, destination);
+            case QUEEN:
+                return (getRookMoveCondition(positionDiff) || getBishopMoveCondition(positionDiff)) && !chessBoard.isAlly(unitInfo, destination);
+            case KING:
+                return getKingMoveCondition(positionDiff) && !chessBoard.isAlly(unitInfo, destination);
             default:
-                return true;
+                return false;
         }
+    }
+
+    private boolean getKingMoveCondition(PositionDiff positionDiff) {
+        return (positionDiff.getColDiff() + positionDiff.getRowDiff() == 1) || (positionDiff.getColDiff() == 1 && positionDiff.getRowDiff() == 1);
+    }
+
+    private boolean getBishopMoveCondition(PositionDiff positionDiff) {
+        return positionDiff.getRowDiff() == positionDiff.getColDiff();
+    }
+
+    private boolean getRookMoveCondition(PositionDiff positionDiff) {
+        if (positionDiff.getRowDiff() == 0 || positionDiff.getRowDiff() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean getKnightMoveCondition(Coordinate destination, UnitInfo unitInfo, PositionDiff positionDiff, ChessBoard chessBoard) {
+        if (positionDiff.getColDiff() + positionDiff.getRowDiff() == 3) {
+            return !chessBoard.isAlly(unitInfo, destination);
+        }
+        return false;
+    }
+
+    private boolean getPawnMoveCondition(Coordinate destination, UnitInfo unitInfo, PositionDiff positionDiff, ChessBoard chessBoard) {
+        if (unitInfo.isOneDiffWithDirection(positionDiff) && chessBoard.isEnemy(unitInfo, destination))
+            return true;
+        if (unitInfo.isFirstAction() && positionDiff.getRowDiff() == 2 && positionDiff.getColDiff() == 0)
+            return true;
+        return !unitInfo.isFirstAction() && positionDiff.getRowDiff() == 1 && positionDiff.getColDiff() == 0;
     }
 
     public Figure mark(Player player) {

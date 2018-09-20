@@ -11,4 +11,5 @@ public interface Unit {
     boolean isPosition(Coordinate target);
     boolean isEnemy(Player player);
     Figure getMark();
+    boolean isAlly(Player player);
 }

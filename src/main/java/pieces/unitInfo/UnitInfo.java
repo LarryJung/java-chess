@@ -1,11 +1,13 @@
-package pieces;
+package pieces.unitInfo;
 
+import pieces.Piece;
 import pieces.Piece.Figure;
+import pieces.Player;
 import pieces.coordinate.Coordinate;
 
 import static pieces.coordinate.Coordinate.*;
 
-public class UnitInfo {
+public abstract class UnitInfo {
 
     private Piece pieceName;
     private Player player;
@@ -39,17 +41,9 @@ public class UnitInfo {
         return presentPosition.equals(target);
     }
 
-    public UnitInfo changeInfo(int row, char col) {
-        if (isPossibleDestination(new Coordinate(row, col))) {
-            return new UnitInfo(pieceName, player, new Coordinate(row, col), countOfAction+1);
-        }
-        throw new RuntimeException("이동 가능한 목적지가 아닙니다.");
-    }
+    public abstract UnitInfo changeInfo(int row, char col);
 
-    private boolean isPossibleDestination(Coordinate destination) {
-        return pieceName.isPossibleDestination(presentPosition, destination, this);
-    }
-
+    public abstract boolean isPossibleDestination(Coordinate destination);
 
     public boolean isOneDiffWithDirection(PositionDiff positionDiff) {
         if (Math.abs(positionDiff.getColDiff()) == 1) {
@@ -77,4 +71,14 @@ public class UnitInfo {
         }
         return mark;
     }
+
+    public int getCountOfAction() {
+        return countOfAction;
+    }
+
+    public Coordinate getPresentPosition() {
+        return presentPosition;
+    }
+
+    public abstract boolean eachMovingLengthCheck(PositionDiff positionDiff, Coordinate destination);
 }

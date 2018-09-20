@@ -74,6 +74,12 @@ public class UnitTest {
     }
 
     @Test
+    public void movePawn_first_success_3() {
+        chessBoard.pickUnitAt(2, 'e').moveTo(4, 'e');
+        assertThat(chessBoard.pickUnitAt(4, 'e').getPiece(), is(PAWN));
+    }
+
+    @Test
     public void movePawn_first_success_2() {
         chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e');
         chessBoard.pickUnitAt(5, 'e').moveTo(4, 'e');
@@ -95,4 +101,23 @@ public class UnitTest {
     public void movePawn_first_fail_3() {
         chessBoard.pickUnitAt(7, 'e').moveTo(6, 'd');
     }
+
+    @Test
+    public void moveKing() {
+        chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e'); // pawn
+        chessBoard.pickUnitAt(8, 'e').moveTo(7, 'e'); // king
+        assertThat(chessBoard.pickUnitAt(7, 'e').getPiece(), is(KING));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void moveKing_fail_1() {
+        chessBoard.pickUnitAt(8, 'e').moveTo(7, 'e'); // king
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void moveKing_fail_2() {
+        chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e'); // pawn
+        chessBoard.pickUnitAt(8, 'e').moveTo(6, 'e'); // king
+    }
+
 }

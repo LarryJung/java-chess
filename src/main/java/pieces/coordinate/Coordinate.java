@@ -1,6 +1,8 @@
 package pieces.coordinate;
 
 import pieces.Piece;
+import pieces.unitInfo.PawnInfo;
+import pieces.unitInfo.UnitInfo;
 
 import java.util.Objects;
 
@@ -48,6 +50,9 @@ public class Coordinate {
             return colDiff;
         }
 
+        public boolean movingLengthCheck(UnitInfo unitInfo) {
+            return unitInfo.eachMovingLengthCheck(this);
+        }
     }
 
     @Override

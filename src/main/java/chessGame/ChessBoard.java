@@ -2,6 +2,7 @@ package chessGame;
 
 import pieces.*;
 import pieces.coordinate.Coordinate;
+import pieces.unitInfo.UnitInfo;
 
 import java.util.LinkedList;
 
@@ -29,17 +30,20 @@ public class ChessBoard {
     }
 
     public Unit pickUnitAt(int i, char a) {
-        return chessUnitSet.stream().filter(unit -> unit.isPosition(i, a)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, new Coordinate(i, a)));
+        return chessUnitSet.stream().filter(unit -> unit.isPosition(i, a)).findFirst().orElseThrow(() -> new RuntimeException("빈 공간입니다."));
     }
 
     public Unit pickUnitAt(Coordinate target) {
-        return chessUnitSet.stream().filter(unit -> unit.isPosition(target)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, target));
+        return chessUnitSet.stream().filter(unit -> unit.isPosition(target)).findFirst().orElseThrow(() -> new RuntimeException("빈 공간입니다."));
     }
 
     public boolean isEnemy(UnitInfo unitInfo, Coordinate destination) {
         return pickUnitAt(destination).isEnemy(unitInfo.getPlayer());
     }
 
+    public boolean isAlly(UnitInfo unitInfo, Coordinate destination) {
+        return pickUnitAt(destination).isAlly(unitInfo.getPlayer());
+    }
 
     public boolean removeUnit(Unit target) {
         return chessUnitSet.remove(target);
@@ -96,4 +100,5 @@ public class ChessBoard {
     public Piece.Figure findMark(Coordinate coordinate) {
         return pickUnitAt(coordinate).getMark();
     }
+
 }
