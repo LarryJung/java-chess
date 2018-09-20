@@ -3,6 +3,8 @@ package pieces;
 import chessGame.ChessBoard;
 import pieces.coordinate.Coordinate;
 
+import static pieces.Piece.*;
+
 public class UnitImpl implements Unit {
 
     private UnitInfo unitInfo;
@@ -42,7 +44,7 @@ public class UnitImpl implements Unit {
     }
 
     @Override
-    public Piece.Figure getMark() {
+    public Figure getMark() {
         return unitInfo.findMark();
     }
 }
