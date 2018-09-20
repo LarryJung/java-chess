@@ -28,11 +28,15 @@ public class BoardView {
         System.out.print("\033[H\033[2J");
         initTiles();
         for (int i = 0; i <= 7; i++) {
+            System.out.print(8-i+ " ");
             for (int j = 0; j <= 7; j++) {
+                System.out.print("|");
                 tileMap[i][j].draw();
+                System.out.print("|");
             }
             System.out.println();
         }
+        System.out.println("    a    b    c    d    e    f    g    h ");
     }
 
 }
