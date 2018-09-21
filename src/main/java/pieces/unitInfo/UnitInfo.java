@@ -47,7 +47,12 @@ public abstract class UnitInfo {
 
     public abstract UnitInfo changeInfo(int row, char col);
 
-    public abstract boolean isPossibleDestination(Coordinate destination);
+    public boolean isPossibleDestination(Coordinate destination) {
+        return directionConditionCheck(destination)
+                .stepScan(destination);
+    }
+
+    public abstract UnitInfo directionConditionCheck(Coordinate destination);
 
     public boolean isOneDiffWithDirection(PositionDiff positionDiff) {
         if (Math.abs(positionDiff.getColDiff()) == 1) {

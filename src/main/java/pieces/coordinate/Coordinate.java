@@ -89,6 +89,10 @@ public class Coordinate {
         public int oneColStep() {
             return colDiff < 0 ? -1 : 1;
         }
+
+        public boolean isLength(double n) {
+            return Math.sqrt(Math.pow(rowDiff, 2) + Math.pow(colDiff, 2)) == n;
+        }
     }
 
     @Override

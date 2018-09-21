@@ -27,7 +27,7 @@ public class BoardView {
     public void drawBoard() throws IOException {
         System.out.print("\033[H\033[2J");
         System.out.println();
-        System.out.println();
+        System.out.println("=+=+=+=+=+=+=+ CHESS GAME =+=+=+=+=+=+=+=");
         System.out.println();
         initTiles();
         for (int i = 0; i <= 7; i++) {

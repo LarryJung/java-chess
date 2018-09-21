@@ -23,12 +23,8 @@ public class PawnInfo extends UnitInfo {
         throw new RuntimeException("이동 가능한 목적지가 아닙니다.");
     }
 
-    public boolean isPossibleDestination(Coordinate destination) {
-        return directionConditionCheck(destination)
-                .stepScan(destination);
-    }
-
-    private UnitInfo directionConditionCheck(Coordinate destination) {
+    @Override
+    public UnitInfo directionConditionCheck(Coordinate destination) {
         Coordinate.PositionDiff positionDiff = super.getPresentPosition().diffTo(destination);
         ChessBoard chessBoard = ChessBoard.getInstance();
         super.getPlayer().directionCheck(positionDiff);
