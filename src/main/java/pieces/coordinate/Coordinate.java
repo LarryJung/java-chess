@@ -138,4 +138,12 @@ public class Coordinate {
     public String toString() {
         return "(" + row.getPosition() +", " + (char) column.getPosition() + ")";
     }
+
+    public int getRow() {
+        return row.getPosition();
+    }
+
+    public int getColumn() {
+        return column.getPosition();
+    }
 }

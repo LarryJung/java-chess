@@ -30,6 +30,16 @@ public class UnitImpl implements Unit {
     }
 
     @Override
+    public Unit moveTo(Coordinate destination) {
+        UnitInfo updatedUnitInfo = unitInfo.changeInfo(destination.getRow(), (char) destination.getColumn());
+        System.out.println(String.format("%s 유저가 %s 을 옮겼습니다. %s -> %s", unitInfo.getPlayer(), unitInfo.getPieceName(), unitInfo.getPositionString(), updatedUnitInfo.getPositionString()));
+        ChessBoard.getInstance().removeUnit(this);
+        this.unitInfo = updatedUnitInfo;
+        ChessBoard.getInstance().updatePosition(this);
+        return this;
+    }
+
+    @Override
     public boolean isPosition(int row, char col) {
         return unitInfo.isPosition(row, col);
     }

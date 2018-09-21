@@ -8,6 +8,7 @@ import static pieces.Piece.*;
 public interface Unit {
     Piece getPiece();
     Unit moveTo(int row, char col);
+    Unit moveTo(Coordinate destination);
     boolean isPosition(int row, char col);
     boolean isPosition(Coordinate target);
     boolean isEnemy(Player player);
@@ -15,4 +16,5 @@ public interface Unit {
     boolean isAlly(Player player);
     void isAttackedBy(Unit unit);
     UnitInfo getUnitInfo();
+
 }
