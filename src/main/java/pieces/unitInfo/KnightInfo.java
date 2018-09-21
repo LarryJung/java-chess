@@ -25,8 +25,8 @@ public class KnightInfo extends UnitInfo {
     @Override
     public UnitInfo directionConditionCheck(Coordinate destination) {
         Coordinate.PositionDiff positionDiff = super.getPresentPosition().diffTo(destination);
-        if (!(positionDiff.getColDiff() + positionDiff.getRowDiff() == 3)) {
-            throw new RuntimeException("나이트가 이동할 수 없는 위치입니다.");
+        if (!((Math.abs(positionDiff.getColDiff()) + Math.abs(positionDiff.getRowDiff())) == 3)) {
+            throw new RuntimeException("나이트가 이동할 수 없는 위치입니다." + destination.toString());
         }
         return this;
     }
