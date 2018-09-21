@@ -18,6 +18,10 @@ public abstract class UnitInfo {
     private Coordinate presentPosition;
     private int countOfAction;
 
+    public UnitInfo() {
+        
+    }
+
     public UnitInfo(Piece pieceName, Player player, Coordinate coordinate) {
         this(pieceName, player, coordinate, 0);
     }

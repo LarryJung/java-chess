@@ -7,6 +7,10 @@ import pieces.coordinate.Coordinate;
 
 public class PawnInfo extends UnitInfo {
 
+    public PawnInfo() {
+
+    }
+
     public PawnInfo(Piece pieceName, Player player, Coordinate coordinate) {
         super(pieceName, player, coordinate);
     }
@@ -29,6 +33,7 @@ public class PawnInfo extends UnitInfo {
         ChessBoard chessBoard = ChessBoard.getInstance();
         super.getPlayer().directionCheck(positionDiff);
         if (positionDiff.isDiagonal() && positionDiff.isLength(Math.sqrt(2))) {
+            System.out.println("mock이 먹히나?" + chessBoard.isEnemy(this, destination));
             if (!chessBoard.isEnemy(this, destination)) {
                 throw new RuntimeException("한칸 대각선 위에 적군이 없습니다.");
             }
