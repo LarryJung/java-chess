@@ -1,7 +1,6 @@
 package pieces;
 
 import pieces.coordinate.Coordinate;
-import pieces.unitInfo.EmptyInfo;
 import pieces.unitInfo.PawnInfo;
 import pieces.unitInfo.UnitInfo;
 
@@ -12,7 +11,7 @@ public class UnitInfoFactory {
             case PAWN:
                 return new PawnInfo(pieceName, player, coordinate);
             default:
-                return new EmptyInfo(pieceName, player, coordinate);
+                return null;
         }
     }
 }

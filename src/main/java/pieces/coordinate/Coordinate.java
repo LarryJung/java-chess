@@ -4,6 +4,7 @@ import pieces.Piece;
 import pieces.unitInfo.PawnInfo;
 import pieces.unitInfo.UnitInfo;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Coordinate {
@@ -32,6 +33,29 @@ public class Coordinate {
         return Piece.Figure.getEmptyBlack();
     }
 
+    public List<Coordinate> makeStepsDiagonal(List<Coordinate> coordinates, Coordinate destination) {
+        PositionDiff positionDiff = this.diffTo(destination);
+        if (this.equals(destination)) {
+            return coordinates;
+        }
+        coordinates.add(new Coordinate(row.getPosition()+positionDiff.oneRowStep(), column.getPosition()+positionDiff.oneColStep()));
+        return makeStepsDiagonal(coordinates, destination);
+    }
+
+    public List<Coordinate> makeStepsOthogonal(List<Coordinate> coordinates, Coordinate destination) {
+        PositionDiff positionDiff = this.diffTo(destination);
+        if (this.equals(destination)) {
+            return coordinates;
+        }
+        if (positionDiff.colDiff == 0) {
+            coordinates.add(new Coordinate(row.getPosition()+positionDiff.oneRowStep(), column.getPosition()));
+        }
+        if (positionDiff.rowDiff == 0) {
+            coordinates.add(new Coordinate(row.getPosition(), column.getPosition() + positionDiff.oneColStep()));
+        }
+        return makeStepsOthogonal(coordinates, destination);
+    }
+
     public static class PositionDiff {
 
         private int rowDiff;
@@ -50,8 +74,20 @@ public class Coordinate {
             return colDiff;
         }
 
-        public boolean movingLengthCheck(UnitInfo unitInfo) {
-            return unitInfo.eachMovingLengthCheck(this);
+        public boolean isDiagonal() {
+            return Math.abs(rowDiff) == Math.abs(colDiff);
+        }
+
+        public boolean isOthogonal() {
+            return rowDiff == 0 || colDiff == 0;
+        }
+
+        public int oneRowStep() {
+            return rowDiff < 0 ? -1 : 1;
+        }
+
+        public int oneColStep() {
+            return colDiff < 0 ? -1 : 1;
         }
     }
 

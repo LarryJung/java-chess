@@ -1,9 +1,13 @@
 package pieces.unitInfo;
 
+import chessGame.ChessBoard;
 import pieces.Piece;
 import pieces.Piece.Figure;
 import pieces.Player;
 import pieces.coordinate.Coordinate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static pieces.coordinate.Coordinate.*;
 
@@ -80,5 +84,21 @@ public abstract class UnitInfo {
         return presentPosition;
     }
 
-    public abstract boolean eachMovingLengthCheck(PositionDiff positionDiff, Coordinate destination);
+    public boolean stepScan(Coordinate destination) {
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        List<Coordinate> coordinates = makeLineSteps(presentPosition, destination);
+        return coordinates.stream().noneMatch(c -> chessBoard.isAlly(this, c));
+    }
+
+    private List<Coordinate> makeLineSteps(Coordinate presentPosition, Coordinate destination) {
+        PositionDiff positionDiff = presentPosition.diffTo(destination);
+        List<Coordinate> coordinates = new ArrayList<>();
+        if (positionDiff.isDiagonal()) {
+            coordinates = presentPosition.makeStepsDiagonal(coordinates, destination);
+        }
+        if (positionDiff.isOthogonal()) {
+            coordinates = presentPosition.makeStepsOthogonal(coordinates, destination);
+        }
+        return coordinates;
+    }
 }

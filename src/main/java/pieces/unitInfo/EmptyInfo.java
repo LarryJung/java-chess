@@ -24,10 +24,6 @@ public class EmptyInfo extends UnitInfo {
         return true;
     }
 
-    @Override
-    public boolean eachMovingLengthCheck(Coordinate.PositionDiff positionDiff, Coordinate destination) {
-        return true;
-    }
 }
 
 

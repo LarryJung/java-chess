@@ -24,20 +24,25 @@ public class PawnInfo extends UnitInfo {
     }
 
     public boolean isPossibleDestination(Coordinate destination) {
-        Coordinate.PositionDiff positionDiff = super.getPresentPosition().diffTo(destination);
-        return eachMovingLengthCheck(positionDiff, destination);
+        return directionConditionCheck(destination)
+                .stepScan(destination);
     }
 
-    @Override
-    public boolean eachMovingLengthCheck(Coordinate.PositionDiff positionDiff, Coordinate destination) {
+    private UnitInfo directionConditionCheck(Coordinate destination) {
+        Coordinate.PositionDiff positionDiff = super.getPresentPosition().diffTo(destination);
         ChessBoard chessBoard = ChessBoard.getInstance();
         super.getPlayer().directionCheck(positionDiff);
-        if (this.isOneDiffWithDirection(positionDiff) && chessBoard.isEnemy(this, destination))
-            return true;
+        if (!(this.isOneDiffWithDirection(positionDiff) && chessBoard.isEnemy(this, destination)))
+            throw new RuntimeException("한칸 대각선 위에 적군이 없습니다.");
         if (this.isFirstAction()) {
-            return Math.abs(positionDiff.getRowDiff()) <= 2 && positionDiff.getColDiff() == 0;
+            if (!(Math.abs(positionDiff.getRowDiff()) <= 2 && positionDiff.getColDiff() == 0)) {
+                throw new RuntimeException("첫번째 이동은 2칸 이하입니다.");
+            }
         }
-        return Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0;
+        if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0)) {
+            throw new RuntimeException("이동은 한칸 이하입니다.");
+        }
+        return this;
     }
 
 }
