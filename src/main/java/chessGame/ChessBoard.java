@@ -140,10 +140,10 @@ public class ChessBoard {
         return false;
     }
 
-    private Unit findKing(Player white) {
+    private Unit findKing(Player player) {
         return chessUnitSetAlive.stream().filter(unit ->
                 unit.getPiece() == Piece.KING &&
-                        unit.getUnitInfo().getPlayer() == white).findFirst().orElseThrow(() -> new RuntimeException("더 이상 왕이 없습니다."));
+                        unit.getUnitInfo().getPlayer() == player).findFirst().orElseThrow(() -> new RuntimeException("더 이상 왕이 없습니다."));
     }
 
     public LinkedList<Unit> getChessUnitSetAlive() {

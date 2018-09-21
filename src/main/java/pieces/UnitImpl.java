@@ -31,6 +31,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public Unit moveTo(Coordinate destination) {
+        System.out.println("선택한 목적지 " + destination.toString());
         UnitInfo updatedUnitInfo = unitInfo.changeInfo(destination.getRow(), (char) destination.getColumn());
         System.out.println(String.format("%s 유저가 %s 을 옮겼습니다. %s -> %s", unitInfo.getPlayer(), unitInfo.getPieceName(), unitInfo.getPositionString(), updatedUnitInfo.getPositionString()));
         ChessBoard.getInstance().removeUnit(this);
