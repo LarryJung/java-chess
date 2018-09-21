@@ -1,6 +1,7 @@
 package pieces;
 
 import pieces.coordinate.Coordinate;
+import pieces.unitInfo.UnitInfo;
 
 import static pieces.Piece.*;
 
@@ -12,4 +13,6 @@ public interface Unit {
     boolean isEnemy(Player player);
     Figure getMark();
     boolean isAlly(Player player);
+    void isAttackedBy(Unit unit);
+    UnitInfo getUnitInfo();
 }

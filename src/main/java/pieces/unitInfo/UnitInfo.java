@@ -13,13 +13,14 @@ import static pieces.coordinate.Coordinate.*;
 
 public abstract class UnitInfo {
 
+    private boolean alive = true;
     private Piece pieceName;
     private Player player;
     private Coordinate presentPosition;
     private int countOfAction;
 
     public UnitInfo() {
-        
+
     }
 
     public UnitInfo(Piece pieceName, Player player, Coordinate coordinate) {
@@ -53,7 +54,16 @@ public abstract class UnitInfo {
 
     public boolean isPossibleDestination(Coordinate destination) {
         return directionConditionCheck(destination)
-                .stepScan(destination);
+                .stepScan(destination)
+                .attackCheck(destination);
+    }
+
+    private boolean attackCheck(Coordinate destination) {
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        if (chessBoard.isEnemy(this, destination)) {
+            chessBoard.pickUnitAt(destination).isAttackedBy(chessBoard.pickUnitAt(presentPosition));
+        }
+        return true;
     }
 
     public abstract UnitInfo directionConditionCheck(Coordinate destination);
@@ -82,11 +92,16 @@ public abstract class UnitInfo {
         return presentPosition;
     }
 
-    public boolean stepScan(Coordinate destination) {
+    public UnitInfo stepScan(Coordinate destination) {
         ChessBoard chessBoard = ChessBoard.getInstance();
         List<Coordinate> coordinates = makeLineSteps(presentPosition, destination);
-        return coordinates.stream().noneMatch(c -> chessBoard.isAlly(this, c));
+        if (coordinates.stream().anyMatch(c -> chessBoard.isAlly(this, c))) {
+            throw new RuntimeException("가는 길에 아군이 있습니다.");
+        }
+        return this;
     }
+
+
 
     private List<Coordinate> makeLineSteps(Coordinate presentPosition, Coordinate destination) {
         PositionDiff positionDiff = presentPosition.diffTo(destination);
@@ -98,5 +113,9 @@ public abstract class UnitInfo {
             coordinates = Coordinate.makeStepsOthogonal(coordinates, presentPosition, destination);
         }
         return coordinates;
+    }
+
+    public void isAttacked() {
+        this.alive = false;
     }
 }

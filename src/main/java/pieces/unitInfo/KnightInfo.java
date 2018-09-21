@@ -32,9 +32,12 @@ public class KnightInfo extends UnitInfo {
     }
 
     @Override
-    public boolean stepScan(Coordinate destination) {
+    public UnitInfo stepScan(Coordinate destination) {
         ChessBoard chessBoard = ChessBoard.getInstance();
-        return !chessBoard.isAlly(this, destination);
+        if (chessBoard.isAlly(this, destination)) {
+            throw new RuntimeException("목적지에 아군이 있습니다.");
+        }
+        return this;
     }
 
 }

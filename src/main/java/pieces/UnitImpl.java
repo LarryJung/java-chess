@@ -53,4 +53,17 @@ public class UnitImpl implements Unit {
     public boolean isAlly(Player player) {
         return this.unitInfo.getPlayer().isAlly(player);
     }
+
+    @Override
+    public void isAttackedBy(Unit unit) {
+        System.out.println(String.format("%s의 %s가 %s의 %s에 의해 공격 당했습니다.", unitInfo.getPlayer(), unit.getPiece(), unit.getUnitInfo().getPlayer(), unit.getUnitInfo().getPieceName()));
+        unitInfo.isAttacked();
+        ChessBoard chessBoard = ChessBoard.getInstance();
+        chessBoard.addDeadUnit(this);
+    }
+
+    @Override
+    public UnitInfo getUnitInfo() {
+        return unitInfo;
+    }
 }

@@ -7,7 +7,8 @@ import java.util.LinkedList;
 
 public class ChessBoard {
 
-    private LinkedList<Unit> chessUnitSet = new LinkedList<>();
+    private LinkedList<Unit> chessUnitSetAlive = new LinkedList<>();
+    private LinkedList<Unit> chessUnitSetDead = new LinkedList<>();
 
     private static ChessBoard chessBoard = new ChessBoard().init();
 
@@ -29,11 +30,19 @@ public class ChessBoard {
     }
 
     public Unit pickUnitAt(int i, char a) {
-        return chessUnitSet.stream().filter(unit -> unit.isPosition(i, a)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, new Coordinate(i, a)));
+        return chessUnitSetAlive.stream().filter(unit -> unit.isPosition(i, a)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, new Coordinate(i, a)));
     }
 
     public Unit pickUnitAt(Coordinate target) {
-        return chessUnitSet.stream().filter(unit -> unit.isPosition(target)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, target));
+        return chessUnitSetAlive.stream().filter(unit -> unit.isPosition(target)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, target));
+    }
+
+    public Unit pickDeadUnitAt(int i, char a) {
+        return chessUnitSetDead.stream().filter(unit -> unit.isPosition(i, a)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, new Coordinate(i, a)));
+    }
+
+    public Unit pickDeadUnitAt(Coordinate target) {
+        return chessUnitSetDead.stream().filter(unit -> unit.isPosition(target)).findFirst().orElse(new UnitImpl(Piece.EMPTY, Player.NONE, target));
     }
 
     public boolean isEnemy(UnitInfo unitInfo, Coordinate destination) {
@@ -45,61 +54,67 @@ public class ChessBoard {
     }
 
     public boolean removeUnit(Unit target) {
-        return chessUnitSet.remove(target);
+        return chessUnitSetAlive.remove(target);
     }
 
     public void updatePosition(Unit target) {
-        chessUnitSet.add(target);
+        chessUnitSetAlive.add(target);
+    }
+
+    public void addUnit(Unit unit) {
+        chessUnitSetAlive.add(unit);
     }
 
     public void initBlack() {
-        chessUnitSet.add(new UnitImpl(Piece.ROOK, Player.BLACK, new Coordinate(8, 'a')));
-        chessUnitSet.add(new UnitImpl(Piece.KNIGHT, Player.BLACK, new Coordinate(8, 'b')));
-        chessUnitSet.add(new UnitImpl(Piece.BISHOP, Player.BLACK, new Coordinate(8, 'c')));
-        chessUnitSet.add(new UnitImpl(Piece.QUEEN, Player.BLACK, new Coordinate(8, 'd')));
-        chessUnitSet.add(new UnitImpl(Piece.KING, Player.BLACK, new Coordinate(8, 'e')));
-        chessUnitSet.add(new UnitImpl(Piece.BISHOP, Player.BLACK, new Coordinate(8, 'f')));
-        chessUnitSet.add(new UnitImpl(Piece.KNIGHT, Player.BLACK, new Coordinate(8, 'g')));
-        chessUnitSet.add(new UnitImpl(Piece.ROOK, Player.BLACK, new Coordinate(8, 'h')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.ROOK, Player.BLACK, new Coordinate(8, 'a')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KNIGHT, Player.BLACK, new Coordinate(8, 'b')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.BISHOP, Player.BLACK, new Coordinate(8, 'c')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.QUEEN, Player.BLACK, new Coordinate(8, 'd')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KING, Player.BLACK, new Coordinate(8, 'e')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.BISHOP, Player.BLACK, new Coordinate(8, 'f')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KNIGHT, Player.BLACK, new Coordinate(8, 'g')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.ROOK, Player.BLACK, new Coordinate(8, 'h')));
 
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'a')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'b')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'c')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'd')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'e')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'f')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'g')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'h')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'a')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'b')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'c')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'd')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'e')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'f')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'g')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.BLACK, new Coordinate(7, 'h')));
     }
 
     public void initWhite() {
-        chessUnitSet.add(new UnitImpl(Piece.ROOK, Player.WHITE, new Coordinate(1, 'a')));
-        chessUnitSet.add(new UnitImpl(Piece.KNIGHT, Player.WHITE, new Coordinate(1, 'b')));
-        chessUnitSet.add(new UnitImpl(Piece.BISHOP, Player.WHITE, new Coordinate(1, 'c')));
-        chessUnitSet.add(new UnitImpl(Piece.QUEEN, Player.WHITE, new Coordinate(1, 'd')));
-        chessUnitSet.add(new UnitImpl(Piece.KING, Player.WHITE, new Coordinate(1, 'e')));
-        chessUnitSet.add(new UnitImpl(Piece.BISHOP, Player.WHITE, new Coordinate(1, 'f')));
-        chessUnitSet.add(new UnitImpl(Piece.KNIGHT, Player.WHITE, new Coordinate(1, 'g')));
-        chessUnitSet.add(new UnitImpl(Piece.ROOK, Player.WHITE, new Coordinate(1, 'h')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.ROOK, Player.WHITE, new Coordinate(1, 'a')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KNIGHT, Player.WHITE, new Coordinate(1, 'b')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.BISHOP, Player.WHITE, new Coordinate(1, 'c')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.QUEEN, Player.WHITE, new Coordinate(1, 'd')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KING, Player.WHITE, new Coordinate(1, 'e')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.BISHOP, Player.WHITE, new Coordinate(1, 'f')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.KNIGHT, Player.WHITE, new Coordinate(1, 'g')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.ROOK, Player.WHITE, new Coordinate(1, 'h')));
 
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'a')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'b')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'c')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'd')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'e')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'f')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'g')));
-        chessUnitSet.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'h')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'a')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'b')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'c')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'd')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'e')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'f')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'g')));
+        chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'h')));
     }
 
     public void clear() {
-        chessBoard = null;
+        chessUnitSetDead.clear();
+        chessUnitSetAlive.clear();
     }
 
     public Piece.Figure findMark(Coordinate coordinate) {
         return pickUnitAt(coordinate).getMark();
     }
 
-
-
+    public void addDeadUnit(UnitImpl unit) {
+        chessUnitSetDead.add(unit);
+    }
 }

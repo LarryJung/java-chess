@@ -33,18 +33,19 @@ public class PawnInfo extends UnitInfo {
         ChessBoard chessBoard = ChessBoard.getInstance();
         super.getPlayer().directionCheck(positionDiff);
         if (positionDiff.isDiagonal() && positionDiff.isLength(Math.sqrt(2))) {
-            System.out.println("mock이 먹히나?" + chessBoard.isEnemy(this, destination));
             if (!chessBoard.isEnemy(this, destination)) {
                 throw new RuntimeException("한칸 대각선 위에 적군이 없습니다.");
             }
+            return this;
         }
         if (this.isFirstAction()) {
-            if (!(Math.abs(positionDiff.getRowDiff()) <= 2 && positionDiff.getColDiff() == 0)) {
+            if (!(Math.abs(positionDiff.getRowDiff()) <= 2 && positionDiff.getColDiff() == 0) && chessBoard.isEnemy(this, destination)) {
                 throw new RuntimeException("첫번째 이동은 2칸 이하입니다.");
             }
+            return this;
         }
         if (!this.isFirstAction()){
-            if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0)) {
+            if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0) && chessBoard.isEnemy(this, destination)) {
                 throw new RuntimeException("이동은 한칸 이하입니다.");
             }
         }
