@@ -18,6 +18,7 @@ public class KingInfo extends UnitInfo {
         if (isPossibleDestination(new Coordinate(row, col))) {
             return new KingInfo(super.getPieceName(), super.getPlayer(), new Coordinate(row, col), super.getCountOfAction() + 1);
         }
+        attackCheck(new Coordinate(row, col));
         throw new RuntimeException("이동 가능한 목적지가 아닙니다.");
     }
 

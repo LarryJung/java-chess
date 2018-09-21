@@ -19,6 +19,7 @@ public class KnightInfo extends UnitInfo {
         if (isPossibleDestination(new Coordinate(row, col))) {
             return new KnightInfo(super.getPieceName(), super.getPlayer(), new Coordinate(row, col), super.getCountOfAction() + 1);
         }
+        attackCheck(new Coordinate(row, col));
         throw new RuntimeException("이동 가능한 목적지가 아닙니다.");
     }
 
@@ -32,12 +33,9 @@ public class KnightInfo extends UnitInfo {
     }
 
     @Override
-    public UnitInfo stepScan(Coordinate destination) {
+    public boolean stepScan(Coordinate destination) {
         ChessBoard chessBoard = ChessBoard.getInstance();
-        if (chessBoard.isAlly(this, destination)) {
-            throw new RuntimeException("목적지에 아군이 있습니다.");
-        }
-        return this;
+        return !chessBoard.isAlly(this, destination);
     }
 
 }

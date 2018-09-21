@@ -3,6 +3,7 @@ package chessGame;
 import pieces.*;
 import pieces.coordinate.Coordinate;
 import pieces.unitInfo.UnitInfo;
+
 import java.util.LinkedList;
 
 public class ChessBoard {
@@ -105,9 +106,13 @@ public class ChessBoard {
         chessUnitSetAlive.add(new UnitImpl(Piece.PAWN, Player.WHITE, new Coordinate(2, 'h')));
     }
 
-    public void clear() {
+    public void clearSet() {
         chessUnitSetDead.clear();
         chessUnitSetAlive.clear();
+    }
+
+    public void clearAll() {
+        chessBoard = null;
     }
 
     public Piece.Figure findMark(Coordinate coordinate) {
@@ -116,5 +121,31 @@ public class ChessBoard {
 
     public void addDeadUnit(UnitImpl unit) {
         chessUnitSetDead.add(unit);
+    }
+
+    public boolean isCheckMate() {
+        Unit whiteKing = findKing(Player.WHITE);
+        Unit blackKing = findKing(Player.BLACK);
+        return chessUnitSetAlive.stream()
+                .filter(unit -> unit.getUnitInfo().getPlayer() == Player.BLACK && unit.getPiece() != Piece.KING)
+                .anyMatch(blackUnit -> blackUnit.getUnitInfo().isPossibleDestination(whiteKing.getUnitInfo().getPresentPosition()))
+                ||
+                chessUnitSetAlive.stream()
+                        .filter(unit -> unit.getUnitInfo().getPlayer() == Player.WHITE && unit.getPiece() != Piece.KING)
+                        .anyMatch(blackUnit -> blackUnit.getUnitInfo().isPossibleDestination(blackKing.getUnitInfo().getPresentPosition()));
+    }
+
+    private Unit findKing(Player white) {
+        return chessUnitSetAlive.stream().filter(unit ->
+                unit.getPiece() == Piece.KING &&
+                        unit.getUnitInfo().getPlayer() == white).findFirst().orElseThrow(() -> new RuntimeException("더 이상 왕이 없습니다."));
+    }
+
+    public LinkedList<Unit> getChessUnitSetAlive() {
+        return chessUnitSetAlive;
+    }
+
+    public LinkedList<Unit> getChessUnitSetDead() {
+        return chessUnitSetDead;
     }
 }

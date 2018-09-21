@@ -24,7 +24,7 @@ public class ChessBoardTest {
 
     @After
     public void tearDown() throws Exception {
-        chessBoard.clear();
+        chessBoard.clearAll();
     }
 
     @Test
@@ -73,18 +73,23 @@ public class ChessBoardTest {
 
     @Test
     public void attackCheck() {
-        chessBoard.clear();
-
+        chessBoard.clearSet();
         chessBoard.addUnit(new UnitImpl(PAWN, Player.BLACK, new Coordinate(4, 'c')));
         chessBoard.addUnit(new UnitImpl(PAWN, Player.WHITE, new Coordinate(3, 'd')));
-
-        assertThat(chessBoard.pickUnitAt(4, 'c').getPiece(), is(PAWN));
-        assertThat(chessBoard.pickUnitAt(4, 'c').getUnitInfo().getPlayer(), is(Player.BLACK));
-        assertThat(chessBoard.pickUnitAt(3, 'd').getPiece(), is(PAWN));
-        assertThat(chessBoard.pickUnitAt(3, 'd').getUnitInfo().getPlayer(), is(Player.WHITE));
-
         chessBoard.pickUnitAt(3, 'd').moveTo(4, 'c');
         assertThat(chessBoard.pickDeadUnitAt(4, 'c').getPiece(), is(PAWN));
+    }
+
+    @Test
+    public void checkMateTest() {
+        chessBoard.clearSet();
+        chessBoard.addUnit(new UnitImpl(KING, Player.WHITE, new Coordinate(6, 'b')));
+        chessBoard.addUnit(new UnitImpl(KNIGHT, Player.WHITE, new Coordinate(1, 'g')));
+        chessBoard.addUnit(new UnitImpl(KING, Player.BLACK, new Coordinate(3, 'b')));
+        chessBoard.addUnit(new UnitImpl(KNIGHT, Player.WHITE, new Coordinate(1, 'c')));
+
+        System.out.println(chessBoard.getChessUnitSetAlive());
+        assertThat(chessBoard.isCheckMate(), is(true));
     }
 
     @Test

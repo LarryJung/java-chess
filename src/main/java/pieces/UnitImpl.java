@@ -56,7 +56,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public void isAttackedBy(Unit unit) {
-        System.out.println(String.format("%s의 %s가 %s의 %s에 의해 공격 당했습니다.", unitInfo.getPlayer(), unit.getPiece(), unit.getUnitInfo().getPlayer(), unit.getUnitInfo().getPieceName()));
+        System.out.println(String.format("%s의 %s가 %s의 %s에 의해 공격 당했습니다.", unitInfo.getPlayer(), unitInfo.getPieceName(), unit.getUnitInfo().getPlayer(), unit.getUnitInfo().getPieceName()));
         unitInfo.isAttacked();
         ChessBoard chessBoard = ChessBoard.getInstance();
         chessBoard.addDeadUnit(this);
@@ -65,5 +65,10 @@ public class UnitImpl implements Unit {
     @Override
     public UnitInfo getUnitInfo() {
         return unitInfo;
+    }
+
+    @Override
+    public String toString() {
+        return unitInfo.toString();
     }
 }

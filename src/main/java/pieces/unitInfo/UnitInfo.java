@@ -53,12 +53,15 @@ public abstract class UnitInfo {
     public abstract UnitInfo changeInfo(int row, char col);
 
     public boolean isPossibleDestination(Coordinate destination) {
-        return directionConditionCheck(destination)
-                .stepScan(destination)
-                .attackCheck(destination);
+        try {
+            return directionConditionCheck(destination)
+                    .stepScan(destination);
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
-    private boolean attackCheck(Coordinate destination) {
+    public boolean attackCheck(Coordinate destination) {
         ChessBoard chessBoard = ChessBoard.getInstance();
         if (chessBoard.isEnemy(this, destination)) {
             chessBoard.pickUnitAt(destination).isAttackedBy(chessBoard.pickUnitAt(presentPosition));
@@ -92,13 +95,10 @@ public abstract class UnitInfo {
         return presentPosition;
     }
 
-    public UnitInfo stepScan(Coordinate destination) {
+    public boolean stepScan(Coordinate destination) {
         ChessBoard chessBoard = ChessBoard.getInstance();
         List<Coordinate> coordinates = makeLineSteps(presentPosition, destination);
-        if (coordinates.stream().anyMatch(c -> chessBoard.isAlly(this, c))) {
-            throw new RuntimeException("가는 길에 아군이 있습니다.");
-        }
-        return this;
+        return coordinates.stream().noneMatch(c -> chessBoard.isAlly(this, c));
     }
 
 
@@ -117,5 +117,16 @@ public abstract class UnitInfo {
 
     public void isAttacked() {
         this.alive = false;
+    }
+
+    @Override
+    public String toString() {
+        return "UnitInfo{" +
+                "alive=" + alive +
+                ", pieceName=" + pieceName +
+                ", player=" + player +
+                ", presentPosition=" + presentPosition +
+                ", countOfAction=" + countOfAction +
+                '}' + "\n";
     }
 }
