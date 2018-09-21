@@ -121,18 +121,23 @@ public class ChessBoard {
 
     public void addDeadUnit(UnitImpl unit) {
         chessUnitSetDead.add(unit);
+        chessUnitSetAlive.remove(pickUnitAt(unit.getUnitInfo().getPresentPosition()));
     }
 
     public boolean isCheckMate() {
         Unit whiteKing = findKing(Player.WHITE);
         Unit blackKing = findKing(Player.BLACK);
-        return chessUnitSetAlive.stream()
+        if (chessUnitSetAlive.stream()
                 .filter(unit -> unit.getUnitInfo().getPlayer() == Player.BLACK && unit.getPiece() != Piece.KING)
                 .anyMatch(blackUnit -> blackUnit.getUnitInfo().isPossibleDestination(whiteKing.getUnitInfo().getPresentPosition()))
                 ||
                 chessUnitSetAlive.stream()
                         .filter(unit -> unit.getUnitInfo().getPlayer() == Player.WHITE && unit.getPiece() != Piece.KING)
-                        .anyMatch(blackUnit -> blackUnit.getUnitInfo().isPossibleDestination(blackKing.getUnitInfo().getPresentPosition()));
+                        .anyMatch(blackUnit -> blackUnit.getUnitInfo().isPossibleDestination(blackKing.getUnitInfo().getPresentPosition()))) {
+            System.out.println("체크 메이트 입니다.");
+            return true;
+        }
+        return false;
     }
 
     private Unit findKing(Player white) {
@@ -147,5 +152,17 @@ public class ChessBoard {
 
     public LinkedList<Unit> getChessUnitSetDead() {
         return chessUnitSetDead;
+    }
+
+    public boolean isGameEnd() {
+        try {
+            System.out.println(findKing(Player.WHITE).toString());
+            System.out.println(findKing(Player.BLACK).toString());
+            return false;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            System.out.println("게임이 종료되었습니다.");
+            return true;
+        }
     }
 }

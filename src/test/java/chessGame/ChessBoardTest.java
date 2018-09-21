@@ -93,6 +93,17 @@ public class ChessBoardTest {
     }
 
     @Test
+    public void gameEnd() {
+        chessBoard.clearSet();
+        chessBoard.addUnit(new UnitImpl(KING, Player.WHITE, new Coordinate(6, 'b')));
+        chessBoard.addUnit(new UnitImpl(KNIGHT, Player.WHITE, new Coordinate(1, 'g')));
+        chessBoard.addUnit(new UnitImpl(KING, Player.BLACK, new Coordinate(3, 'b')));
+        chessBoard.addUnit(new UnitImpl(KNIGHT, Player.WHITE, new Coordinate(1, 'c')));
+        chessBoard.pickUnitAt(1, 'c').moveTo(3, 'b');
+        assertThat(chessBoard.isGameEnd(), is(true));
+    }
+
+    @Test
     public void movePawn_first_success_1() {
         chessBoard.pickUnitAt(7, 'e').moveTo(5, 'e');
         assertThat(chessBoard.pickUnitAt(5, 'e').getPiece(), is(PAWN));
