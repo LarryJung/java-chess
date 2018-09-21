@@ -156,6 +156,8 @@ public class ChessBoard {
 
     public boolean isGameEnd() {
         try {
+            findKing(Player.WHITE);
+            findKing(Player.BLACK);
             return false;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());

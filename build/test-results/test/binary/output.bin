@@ -1,7 +1,18 @@
-;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
-;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
-;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
-;BLACK 유저가 PAWN 을 옮겼습니다. (5, e) -> (4, e)
-;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
-;BLACK 유저가 KING 을 옮겼습니다. (8, e) -> (7, e)
-블랙
+][UnitInfo{alive=true, pieceName=KING, player=WHITE, presentPosition=(6, b), countOfAction=0}
+`, UnitInfo{alive=true, pieceName=KNIGHT, player=WHITE, presentPosition=(1, g), countOfAction=0}
+^, UnitInfo{alive=true, pieceName=KING, player=BLACK, presentPosition=(3, b), countOfAction=0}
+`, UnitInfo{alive=true, pieceName=KNIGHT, player=WHITE, presentPosition=(1, c), countOfAction=0}
+]
+체크 메이트 입니다.
+;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+ABLACK의 PAWN가 WHITE의 PAWN에 의해 공격 당했습니다.
+;WHITE 유저가 PAWN 을 옮겼습니다. (3, d) -> (4, c)
+ ;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+!;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+!;BLACK 유저가 PAWN 을 옮겼습니다. (5, e) -> (4, e)
+";WHITE 유저가 PAWN 을 옮겼습니다. (2, e) -> (4, e)
+#;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (6, e)
+$CBLACK의 KING가 WHITE의 KNIGHT에 의해 공격 당했습니다.
+$=WHITE 유저가 KNIGHT 을 옮겼습니다. (1, c) -> (3, b)
+%;BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+%;BLACK 유저가 KING 을 옮겼습니다. (8, e) -> (7, e)

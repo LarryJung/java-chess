@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="chessGame.ChessBoardTest" tests="14" skipped="0" failures="1" errors="0" timestamp="2018-09-21T09:11:51" hostname="chaegyunui-MBP" time="0.078">
+  <properties/>
+  <testcase name="checkMateTest" classname="chessGame.ChessBoardTest" time="0.044"/>
+  <testcase name="initPositionTest_black" classname="chessGame.ChessBoardTest" time="0.003"/>
+  <testcase name="initPositionTest_white" classname="chessGame.ChessBoardTest" time="0.006"/>
+  <testcase name="moveKing_fail_1" classname="chessGame.ChessBoardTest" time="0.003"/>
+  <testcase name="moveKing_fail_2" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="attackCheck" classname="chessGame.ChessBoardTest" time="0.003"/>
+  <testcase name="movePawn_first_success_1" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="movePawn_first_success_2" classname="chessGame.ChessBoardTest" time="0.003"/>
+  <testcase name="movePawn_first_success_3" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="movePawn_first_success_4" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="gameEnd" classname="chessGame.ChessBoardTest" time="0.003">
+    <failure message="java.lang.AssertionError: &#10;Expected: is &lt;true&gt;&#10;     but: was &lt;false&gt;" type="java.lang.AssertionError">java.lang.AssertionError: 
+Expected: is &lt;true&gt;
+     but: was &lt;false&gt;
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at org.junit.Assert.assertThat(Assert.java:923)
+	at chessGame.ChessBoardTest.gameEnd(ChessBoardTest.java:103)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.runTestClass(JUnitTestClassExecuter.java:114)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecuter.execute(JUnitTestClassExecuter.java:57)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassProcessor.processTestClass(JUnitTestClassProcessor.java:66)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy1.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:109)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:146)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:128)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
+	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:46)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
+	at java.lang.Thread.run(Thread.java:748)
+</failure>
+  </testcase>
+  <testcase name="moveKing" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="movePawn_first_fail_2" classname="chessGame.ChessBoardTest" time="0.001"/>
+  <testcase name="movePawn_first_fail_3" classname="chessGame.ChessBoardTest" time="0.0"/>
+  <system-out><![CDATA[[UnitInfo{alive=true, pieceName=KING, player=WHITE, presentPosition=(6, b), countOfAction=0}
+, UnitInfo{alive=true, pieceName=KNIGHT, player=WHITE, presentPosition=(1, g), countOfAction=0}
+, UnitInfo{alive=true, pieceName=KING, player=BLACK, presentPosition=(3, b), countOfAction=0}
+, UnitInfo{alive=true, pieceName=KNIGHT, player=WHITE, presentPosition=(1, c), countOfAction=0}
+]
+체크 메이트 입니다.
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK의 PAWN가 WHITE의 PAWN에 의해 공격 당했습니다.
+WHITE 유저가 PAWN 을 옮겼습니다. (3, d) -> (4, c)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK 유저가 PAWN 을 옮겼습니다. (5, e) -> (4, e)
+WHITE 유저가 PAWN 을 옮겼습니다. (2, e) -> (4, e)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (6, e)
+BLACK의 KING가 WHITE의 KNIGHT에 의해 공격 당했습니다.
+WHITE 유저가 KNIGHT 을 옮겼습니다. (1, c) -> (3, b)
+BLACK 유저가 PAWN 을 옮겼습니다. (7, e) -> (5, e)
+BLACK 유저가 KING 을 옮겼습니다. (8, e) -> (7, e)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

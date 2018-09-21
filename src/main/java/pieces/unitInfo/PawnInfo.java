@@ -45,9 +45,12 @@ public class PawnInfo extends UnitInfo {
             }
             return this;
         }
-        if (!this.isFirstAction()){
-            if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0) && chessBoard.isEnemy(this, destination)) {
+        if (!this.isFirstAction()) {
+            if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0)) {
                 throw new RuntimeException("이동은 한칸 이하입니다.");
+            }
+            if (chessBoard.isEnemy(this, destination)) {
+                throw new RuntimeException("가려는 위치에 적군이 있습니다.");
             }
         }
         return this;
