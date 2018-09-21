@@ -1,6 +1,5 @@
 package pieces.unitInfo;
 
-import chessGame.ChessBoard;
 import pieces.Piece;
 import pieces.Player;
 import pieces.coordinate.Coordinate;

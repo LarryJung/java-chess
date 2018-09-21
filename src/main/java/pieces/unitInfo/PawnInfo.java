@@ -28,15 +28,20 @@ public class PawnInfo extends UnitInfo {
         Coordinate.PositionDiff positionDiff = super.getPresentPosition().diffTo(destination);
         ChessBoard chessBoard = ChessBoard.getInstance();
         super.getPlayer().directionCheck(positionDiff);
-        if (!(this.isOneDiffWithDirection(positionDiff) && chessBoard.isEnemy(this, destination)))
-            throw new RuntimeException("한칸 대각선 위에 적군이 없습니다.");
+        if (positionDiff.isDiagonal() && positionDiff.isLength(Math.sqrt(2))) {
+            if (!chessBoard.isEnemy(this, destination)) {
+                throw new RuntimeException("한칸 대각선 위에 적군이 없습니다.");
+            }
+        }
         if (this.isFirstAction()) {
             if (!(Math.abs(positionDiff.getRowDiff()) <= 2 && positionDiff.getColDiff() == 0)) {
                 throw new RuntimeException("첫번째 이동은 2칸 이하입니다.");
             }
         }
-        if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0)) {
-            throw new RuntimeException("이동은 한칸 이하입니다.");
+        if (!this.isFirstAction()){
+            if (!(Math.abs(positionDiff.getRowDiff()) <= 1 && positionDiff.getColDiff() == 0)) {
+                throw new RuntimeException("이동은 한칸 이하입니다.");
+            }
         }
         return this;
     }

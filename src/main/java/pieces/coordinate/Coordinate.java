@@ -1,6 +1,7 @@
 package pieces.coordinate;
 
 import pieces.Piece;
+import pieces.Player;
 import pieces.unitInfo.PawnInfo;
 import pieces.unitInfo.UnitInfo;
 
@@ -33,27 +34,31 @@ public class Coordinate {
         return Piece.Figure.getEmptyBlack();
     }
 
-    public List<Coordinate> makeStepsDiagonal(List<Coordinate> coordinates, Coordinate destination) {
-        PositionDiff positionDiff = this.diffTo(destination);
-        if (this.equals(destination)) {
+    public static List<Coordinate> makeStepsDiagonal(List<Coordinate> coordinates, Coordinate presentPosition, Coordinate destination) {
+        PositionDiff positionDiff = presentPosition.diffTo(destination);
+        Coordinate nextPosition;
+        if (presentPosition.equals(destination)) {
             return coordinates;
         }
-        coordinates.add(new Coordinate(row.getPosition()+positionDiff.oneRowStep(), column.getPosition()+positionDiff.oneColStep()));
-        return makeStepsDiagonal(coordinates, destination);
+        nextPosition = new Coordinate(presentPosition.row.getPosition()+positionDiff.oneRowStep(), presentPosition.column.getPosition()+positionDiff.oneColStep());
+        coordinates.add(nextPosition);
+        return makeStepsDiagonal(coordinates, nextPosition, destination);
     }
 
-    public List<Coordinate> makeStepsOthogonal(List<Coordinate> coordinates, Coordinate destination) {
-        PositionDiff positionDiff = this.diffTo(destination);
-        if (this.equals(destination)) {
+    public static List<Coordinate> makeStepsOthogonal(List<Coordinate> coordinates, Coordinate presentPosition, Coordinate destination) {
+        PositionDiff positionDiff = presentPosition.diffTo(destination);
+        Coordinate nextPosition = null;
+        if (presentPosition.equals(destination)) {
             return coordinates;
         }
         if (positionDiff.colDiff == 0) {
-            coordinates.add(new Coordinate(row.getPosition()+positionDiff.oneRowStep(), column.getPosition()));
+            nextPosition = new Coordinate(presentPosition.row.getPosition()+positionDiff.oneRowStep(), presentPosition.column.getPosition());
         }
         if (positionDiff.rowDiff == 0) {
-            coordinates.add(new Coordinate(row.getPosition(), column.getPosition() + positionDiff.oneColStep()));
+            nextPosition = new Coordinate(presentPosition.row.getPosition(), presentPosition.column.getPosition() + positionDiff.oneColStep());
         }
-        return makeStepsOthogonal(coordinates, destination);
+        coordinates.add(nextPosition);
+        return makeStepsOthogonal(coordinates, nextPosition, destination);
     }
 
     public static class PositionDiff {
@@ -83,15 +88,35 @@ public class Coordinate {
         }
 
         public int oneRowStep() {
-            return rowDiff < 0 ? -1 : 1;
+            return rowDiff < 0 ? 1 : -1;
         }
 
         public int oneColStep() {
-            return colDiff < 0 ? -1 : 1;
+            return colDiff < 0 ? 1 : -1;
         }
 
         public boolean isLength(double n) {
             return Math.sqrt(Math.pow(rowDiff, 2) + Math.pow(colDiff, 2)) == n;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("row diff : %d, col diff : %d", rowDiff, colDiff);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            PositionDiff that = (PositionDiff) o;
+            return rowDiff == that.rowDiff &&
+                    colDiff == that.colDiff;
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(rowDiff, colDiff);
         }
     }
 

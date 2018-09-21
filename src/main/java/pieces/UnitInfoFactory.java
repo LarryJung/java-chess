@@ -20,7 +20,7 @@ public class UnitInfoFactory {
             case KING:
                 return new KingInfo(pieceName, player, coordinate);
             default:
-                return null;
+                return new EmptyInfo(pieceName, player, coordinate);
         }
     }
 }

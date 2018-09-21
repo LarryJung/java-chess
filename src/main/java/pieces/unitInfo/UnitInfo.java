@@ -54,17 +54,6 @@ public abstract class UnitInfo {
 
     public abstract UnitInfo directionConditionCheck(Coordinate destination);
 
-    public boolean isOneDiffWithDirection(PositionDiff positionDiff) {
-        if (Math.abs(positionDiff.getColDiff()) == 1) {
-            if (player == Player.BLACK && positionDiff.getRowDiff() == 1) {
-                System.out.println("블랙");
-                return true;
-            }
-            if (player == Player.WHITE && positionDiff.getRowDiff() == -1) return true;
-        }
-        return false;
-    }
-
     public boolean isFirstAction() {
         return countOfAction == 0;
     }
@@ -99,10 +88,10 @@ public abstract class UnitInfo {
         PositionDiff positionDiff = presentPosition.diffTo(destination);
         List<Coordinate> coordinates = new ArrayList<>();
         if (positionDiff.isDiagonal()) {
-            coordinates = presentPosition.makeStepsDiagonal(coordinates, destination);
+            coordinates = Coordinate.makeStepsDiagonal(coordinates, presentPosition, destination);
         }
         if (positionDiff.isOthogonal()) {
-            coordinates = presentPosition.makeStepsOthogonal(coordinates, destination);
+            coordinates = Coordinate.makeStepsOthogonal(coordinates, presentPosition, destination);
         }
         return coordinates;
     }
